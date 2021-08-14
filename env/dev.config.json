@@ -1,0 +1,16 @@
+{
+  "feeds": {
+    "user": "movie_user",
+    "password": "123456",
+    "port": 5432,
+    "host": "172.17.0.1",
+    "keepAlive": true,
+    "ssl": false,
+    "path": "./feeds"
+  },
+  "server": {
+    "port": 3000,
+    "version": "0"
+  },
+  "log": "debug"
+}
