@@ -10,6 +10,9 @@ import Config from '../config/Config';
 import ReportingService from '../services/ReportingService';
 import {AddJsonContentTypeHeaders} from '../middlewares';
 import IReportingService from '../services/IReportingService';
+import DataUploadRouter from '../routes/DataUploadRouter';
+import IReportDataUploadService from '../services/IReportDataUploadService';
+import ReportDataUploadService from '../services/ReportDataUploadService';
 import winston from 'winston';
 import IReportRepository from '../repositories/IReportRepository';
 import ReportRepository from '../repositories/ReportRepository';
@@ -57,6 +60,9 @@ export default class AppServer {
     let reportingService: IReportingService = ReportingService.getInstance(this.config, reportRepository);
     // TODO move all the routers into an array and apply API varsion prefix to all of them at one time
     this._express.use(`/v${AppServer.API_VERSION}/report`, new ReportRouter(reportingService).router);
+
+    let reportDataUploadService: IReportDataUploadService = ReportDataUploadService.getInstance(this.config)
+    this._express.use(`/v${AppServer.API_VERSION}/data`, new DataUploadRouter(reportDataUploadService).router);
 
     this._express.use(function(req, res, next) {
       next(createError(404));

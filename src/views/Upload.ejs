@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <% messages.forEach(function(msg){ %>
+        <h2 class='message <%- msg.messageType %>'><%= msg.message %></h2>
+    <% }) %>
+    <form method='post' encType='multipart/form-data'>
+    <fieldset>
+        <label for='listings'>listings.csv</label>
+        <input type='file' name='listings' id='listings'>
+        </fieldset>
+        <fieldset>
+        <label for='contacts'>contacts.csv</label>
+        <input type='file' name='contacts' id='contacts'>
+        </fieldset>
+        <input type='submit' name='submit' id='submit' value='Submit'>
+    </form>
+  </body>
+</html>
