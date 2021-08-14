@@ -1,0 +1,23 @@
+version: "3.5"
+
+services:
+  report-server:
+    container_name: report-server
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      target: report-server
+    ports:
+      - $PORT:3000 #8080
+    environment:
+      - PORT=$PORT #8080
+      - NODE_ENV=$NODE_ENV #dev
+      - CONFIG_PATH=$CONFIG_PATH #./env/dev.config.json
+    volumes:
+      - $APP_CONFIG_VOLUME/$NODE_ENV.config.json:/app/env/$NODE_ENV.config.json
+
+networks:
+  report-server:
+
+volumes:
+  config:
