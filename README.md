@@ -4,7 +4,9 @@
 
 The simplest REST API service implemented above express.js
 
-*TODO*: Add an OpenApi document
+See OpenAPI definition at [./swagger.json](./swagger.json)
+
+*TODO*: complete the OpenApi document with all the exposed REST endpoints
 
 The basic infrastructure includes:
 
@@ -37,9 +39,9 @@ docker build -t report-server -f ./Dockerfile .
 
 ###Prerequisites
 
- - Check if you have some data files in `feeds` directory
+- Check if you have some data files in `feeds` directory
 
- - Prepare the environment:
+- Prepare the environment:
 
 ```
 ./scripts/run.sh
@@ -156,3 +158,16 @@ Or using a web browser:
 [http://localhost:8080/v0/data/upload](http://localhost:8080/v0/data/upload)
 
 ##TODO
+
+- consider adding authorization for the REST endpoints
+- consider using Redis cache for generated reports
+- test docker-compose.yml with clear space
+- use one logger library (pref. winston) for all classes
+- take logger transport from config
+- refactor routers
+- improve uploaded files validation
+- increase code coverage
+- add integration test for the whole application
+- consider to add Travis/Jenkins scripts
+- implement data files upload/retrieval using S3 API
+ 

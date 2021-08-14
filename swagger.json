@@ -1,0 +1,187 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Listing Report REST service",
+    "description": "Provides REST API for listing reports",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "version": "0.0.1"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:{port}/v{api-version}",
+      "description": "Local server",
+      "variables": {
+        "port": {
+          "enum": [
+            "3000",
+            "8080"
+          ],
+          "default": "3000"
+        },
+        "api-version": {
+          "default": "0"
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/report/avg_selling_prices": {
+      "get": {
+        "operationId": "avg_selling_prices_get",
+        "summary": "Get Average Selling Prices",
+        "tags": [
+          "AvgSellingPrices"
+        ],
+        "parameters": [
+          {
+            "name": "json",
+            "description": "Respond with JSON instead of HTML",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "description": "Return Average Selling Price Report",
+        "responses": {
+          "200": {
+            "description": "A page of movie list",
+            "content": {
+              "text/html": {
+              },
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/List"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AvgSellingPriceList"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/ResponseErrorNotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/ResponseErrorInternalServerError"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "List": {
+        "type": "object",
+        "description": "Response object with entity list",
+        "properties": {
+          "data": {
+            "type": "array",
+            "description": "Entity list",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "AvgSellingPriceList": {
+        "type": "object",
+        "description": "AvgSellingPrice list",
+        "properties": {
+          "data": {
+            "type": "array",
+            "description": "AvgSellingPrice list",
+            "items": {
+              "$ref": "#/components/schemas/AvgSellingPrice"
+            }
+          }
+        }
+      },
+      "AvgSellingPrice": {
+        "type": "object",
+        "description": "Average Selling Price model",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Seller type"
+          },
+          "price": {
+            "type": "number",
+            "description": "Price",
+            "format": "double"
+          }
+        }
+      },
+      "ServiceResponse": {
+        "type": "object",
+        "description": "Common service response",
+        "properties": {
+          "status": {
+            "type": "number",
+            "description": "HTTP statuus"
+          },
+          "message": {
+            "type": "string",
+            "description": "Result message"
+          }
+        }
+      }
+    },
+    "responses": {
+      "ResponseOperationSucceeded": {
+        "description": "An 'operation succeeded' response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ServiceResponse"
+            }
+          }
+        }
+      },
+      "ResponseErrorNotFound": {
+        "description": "An 'object not found' response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ServiceResponse"
+            }
+          }
+        }
+      },
+      "ResponseErrorBadRequest": {
+        "description": "A 'bad request' response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ServiceResponse"
+            }
+          }
+        }
+      },
+      "ResponseErrorInternalServerError": {
+        "description": "An 'internal server error' response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/ServiceResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "security": [],
+  "tags": [
+    {
+      "name": "AvgSellingPrices"
+    }
+  ]
+}
