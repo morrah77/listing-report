@@ -1,0 +1,9 @@
+<tr><td>
+    <h1><%= model.month %></h1>
+    <table class='report'>
+    <tr><th>Ranking</th><th>Listing Id</th><th>Make</th><th>Selling Price</th><th>Mileage</th><th>Total Amount of contacts</th></tr>
+        <% model.listings.forEach(function(model){ %>
+            <tr><td><%= model.ranking %></td><td><%= model.listingId %></td><td><%= model.make %></td><td><%= model.price %></td><td><%= model.mileage %></td><td><%= model.totalContacts %></td></tr>
+        <% }) %>
+    </table>
+</td></tr>
